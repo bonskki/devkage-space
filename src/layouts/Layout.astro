@@ -1,23 +1,55 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'devkage — HPC, AI & life at York',
+  description = 'A personal blog by Bona on HPC, CUDA, C++, AI, and life as an MSc student at York.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://devkage.space').href;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body class="min-h-screen bg-[color:var(--color-bg-secondary)]">
+    <main class="mx-auto max-w-2xl px-0 sm:px-4 py-0 sm:py-8">
+      <div
+        class="bg-[color:var(--color-bg-primary)] sm:border sm:border-[color:var(--color-border-tertiary)] sm:rounded-xl overflow-hidden"
+      >
+        <Nav />
+        <slot />
+      </div>
+      <footer class="px-5 sm:px-6 py-6 text-center font-mono text-[10px] uppercase tracking-wider text-[color:var(--color-text-tertiary)]">
+        devkage.space · made with care in york
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const channels = [
+  {
+    label: 'email',
+    handle: 'hello@devkage.space',
+    href: 'mailto:hello@devkage.space',
+    note: 'Best for anything substantive. I read everything, even if I take a few days.',
+  },
+  {
+    label: 'github',
+    handle: '@devkage',
+    href: 'https://github.com/devkage',
+    note: 'Code lives here. Issues and PRs welcome on any public repo.',
+  },
+  {
+    label: 'linkedin',
+    handle: 'in/devkage',
+    href: 'https://www.linkedin.com/in/devkage/',
+    note: 'For recruiters & professional outreach.',
+  },
+  {
+    label: 'x',
+    handle: '@devkage',
+    href: 'https://x.com/devkage',
+    note: 'Quick takes & shipping updates. Not always on.',
+  },
+];
+---
+
+<Layout
+  title="contact — devkage"
+  description="How to reach Bona — email, GitHub, LinkedIn, X."
+>
+  <article class="px-5 sm:px-6 py-6 sm:py-8">
+    <a
+      href="/"
+      class="inline-block mb-4 font-mono text-[11px] text-[color:var(--color-text-tertiary)] no-underline hover:text-[color:var(--color-accent)]"
+    >
+      ← back
+    </a>
+
+    <h1
+      class="font-display text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-[color:var(--color-text-primary)] mb-1"
+    >
+      Contact
+    </h1>
+    <p class="font-mono text-[11px] uppercase tracking-wider text-[color:var(--color-text-tertiary)] mb-6">
+      pick the one that fits
+    </p>
+
+    <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)] mb-6">
+      I'd rather one good email than ten short messages. Take your time with what you send —
+      I'll take time to reply.
+    </p>
+
+    <ul class="flex flex-col gap-0">
+      {channels.map((c, i) => (
+        <li
+          class:list={[
+            'flex flex-col gap-1 py-4',
+            i < channels.length - 1 && 'border-b border-[color:var(--color-border-tertiary)]',
+          ]}
+        >
+          <div class="flex items-baseline justify-between gap-3">
+            <a
+              href={c.href}
+              class="font-display text-lg font-bold text-[color:var(--color-text-primary)] no-underline hover:text-[color:var(--color-accent)]"
+            >
+              {c.handle}
+            </a>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-[color:var(--color-text-tertiary)]">
+              {c.label}
+            </span>
+          </div>
+          <p class="text-xs leading-relaxed text-[color:var(--color-text-secondary)]">{c.note}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div
+      class="mt-8 rounded-md border border-[color:var(--color-border-tertiary)] bg-[color:var(--color-bg-secondary)] px-4 py-3"
+    >
+      <p class="font-mono text-[11px] uppercase tracking-wider text-[color:var(--color-text-tertiary)] mb-1">
+        based in
+      </p>
+      <p class="text-sm text-[color:var(--color-text-primary)]">
+        York, United Kingdom · UTC+0 / UTC+1
+      </p>
+    </div>
+  </article>
+</Layout>

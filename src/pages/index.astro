@@ -1,11 +1,232 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+export const prerender = true;
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro';
+import { ALL_TAGS, tagLabel, type Tag } from '../lib/tags';
+
+type PostFrontmatter = {
+  title: string;
+  date: string;
+  excerpt: string;
+  tags: Tag[];
+  draft?: boolean;
+};
+
+const modules = import.meta.glob<{ frontmatter: PostFrontmatter }>(
+  '../content/posts/*.md',
+  { eager: true },
+);
+
+const posts = Object.entries(modules)
+  .map(([path, mod]) => {
+    const slug = path.split('/').pop()!.replace(/\.md$/, '');
+    return { id: slug, data: { ...mod.frontmatter, date: new Date(mod.frontmatter.date) } };
+  })
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="devkage — posts"
+  description="A personal blog by Bona on HPC, CUDA, C++, AI, and life as an MSc student at York."
+>
+  <h1 class="sr-only">DevKage blog — posts on HPC, AI, C++, and life at York</h1>
+
+  <!-- Profile -->
+  <section
+    class="flex items-center gap-3.5 px-5 sm:px-6 py-5 border-b border-[color:var(--color-border-tertiary)]"
+  >
+    <div
+      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border bg-[color:var(--color-accent-bg)] border-[color:var(--color-accent-border)] font-mono text-xs text-[color:var(--color-accent-deep)]"
+    >
+      BK
+    </div>
+    <div>
+      <div
+        class="font-display text-base font-bold tracking-tight text-[color:var(--color-text-primary)]"
+      >
+        Bona — HPC &amp; AI in the making
+      </div>
+      <div class="mt-0.5 text-xs leading-relaxed text-[color:var(--color-text-secondary)]">
+        MSc CS @ York · C++, CUDA, Python · sharing everything freely ·
+        <a href="/" class="text-[color:var(--color-accent)] no-underline">devkage.space</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section
+    class="flex flex-col gap-2.5 bg-[color:var(--color-bg-secondary)] px-5 sm:px-6 py-3.5 border-b border-[color:var(--color-border-tertiary)]"
+  >
+    <label
+      class="flex items-center gap-2 rounded-md border border-[color:var(--color-border-secondary)] bg-[color:var(--color-bg-primary)] px-3"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-4 w-4 flex-shrink-0 text-[color:var(--color-text-tertiary)]"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        id="search"
+        placeholder="Search posts..."
+        autocomplete="off"
+        spellcheck="false"
+        class="w-full border-none bg-transparent py-2.5 text-sm text-[color:var(--color-text-primary)] outline-none placeholder:text-[color:var(--color-text-tertiary)]"
+      />
+    </label>
+
+    <div class="flex flex-wrap items-center gap-1.5">
+      <span
+        class="mr-0.5 font-mono text-[10px] uppercase tracking-wider text-[color:var(--color-text-tertiary)]"
+      >
+        Tag
+      </span>
+      <button
+        type="button"
+        data-tag="all"
+        class="ftag active cursor-pointer rounded select-none border border-[color:var(--color-border-secondary)] bg-[color:var(--color-bg-primary)] px-2.5 py-1 font-mono text-[11px] text-[color:var(--color-text-secondary)] transition"
+      >
+        All
+      </button>
+      {ALL_TAGS.map((t) => (
+        <button
+          type="button"
+          data-tag={t}
+          class="ftag cursor-pointer rounded select-none border border-[color:var(--color-border-secondary)] bg-[color:var(--color-bg-primary)] px-2.5 py-1 font-mono text-[11px] text-[color:var(--color-text-secondary)] transition"
+        >
+          {tagLabel[t]}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- Results meta -->
+  <div class="px-5 sm:px-6 pt-2.5">
+    <span
+      id="count"
+      class="font-mono text-[11px] text-[color:var(--color-text-tertiary)]"
+    >
+      {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+    </span>
+  </div>
+
+  <!-- Posts -->
+  <section id="posts" class="px-5 sm:px-6 pb-6 pt-3">
+    {posts.map((p, i) => {
+      const searchBlob = (p.data.title + ' ' + p.data.excerpt + ' ' + p.data.tags.join(' ')).toLowerCase();
+      return (
+        <article
+          class:list={[
+            'post flex flex-col gap-1.5 py-4',
+            i < posts.length - 1 && 'border-b border-[color:var(--color-border-tertiary)]',
+          ]}
+          data-tags={p.data.tags.join(' ')}
+          data-search={searchBlob}
+        >
+          <div class="flex items-start justify-between gap-3">
+            <a
+              href={`/posts/${p.id}/`}
+              class="font-display text-base font-bold leading-tight tracking-tight text-[color:var(--color-text-primary)] no-underline hover:text-[color:var(--color-accent)]"
+            >
+              {p.data.title}
+            </a>
+            <span
+              class="mt-1 whitespace-nowrap font-mono text-[10px] text-[color:var(--color-text-tertiary)]"
+            >
+              {fmtDate(p.data.date)}
+            </span>
+          </div>
+          <p class="text-xs leading-relaxed text-[color:var(--color-text-secondary)]">
+            {p.data.excerpt}
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {p.data.tags.map((t) => (
+              <span class={`ptag ptag-${t}`}>{tagLabel[t]}</span>
+            ))}
+          </div>
+        </article>
+      );
+    })}
+  </section>
+
+  <div
+    id="empty"
+    class="hidden px-6 py-8 text-center text-sm text-[color:var(--color-text-tertiary)]"
+  >
+    No posts found.
+  </div>
 </Layout>
+
+<style>
+  .ftag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-deep);
+  }
+  .ftag.active {
+    background: var(--color-accent-bg);
+    border-color: var(--color-accent);
+    color: var(--color-accent-deep);
+  }
+</style>
+
+<script>
+  const searchEl = document.getElementById('search') as HTMLInputElement | null;
+  const countEl = document.getElementById('count');
+  const emptyEl = document.getElementById('empty');
+  const postEls = Array.from(document.querySelectorAll<HTMLElement>('#posts .post'));
+  const tagBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.ftag'));
+
+  let activeTag = 'all';
+
+  function applyFilter() {
+    const q = (searchEl?.value ?? '').toLowerCase().trim();
+    let shown = 0;
+
+    postEls.forEach((el, i) => {
+      const tags = el.dataset.tags ?? '';
+      const text = el.dataset.search ?? '';
+      const tagOk = activeTag === 'all' || tags.split(' ').includes(activeTag);
+      const textOk = q === '' || text.includes(q);
+      const visible = tagOk && textOk;
+      el.style.display = visible ? '' : 'none';
+      if (visible) shown++;
+    });
+
+    // re-apply bottom-border to the last visible post only
+    const visiblePosts = postEls.filter((el) => el.style.display !== 'none');
+    postEls.forEach((el) =>
+      el.classList.add('border-b', 'border-[color:var(--color-border-tertiary)]'),
+    );
+    if (visiblePosts.length > 0) {
+      const last = visiblePosts[visiblePosts.length - 1];
+      last.classList.remove('border-b', 'border-[color:var(--color-border-tertiary)]');
+    }
+
+    if (countEl) countEl.textContent = `${shown} ${shown === 1 ? 'post' : 'posts'}`;
+    if (emptyEl) emptyEl.classList.toggle('hidden', shown !== 0);
+  }
+
+  searchEl?.addEventListener('input', applyFilter);
+
+  tagBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeTag = btn.dataset.tag ?? 'all';
+      tagBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter();
+    });
+  });
+</script>
