@@ -7,6 +7,11 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	// Astro Sessions store. Bind the existing namespace by id so deploys
+	// don't try to auto-provision (re-create) it on every build.
+	"kv_namespaces": [
+		{ "binding": "SESSION", "id": "8810f189978742beb61e3b4f393d83cc" }
+	],
 	"observability": {
 		"enabled": true
 	}
