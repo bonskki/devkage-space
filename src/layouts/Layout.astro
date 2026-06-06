@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'devkage — HPC, AI & life at York',
-  description = 'A personal blog by Bona on HPC, CUDA, C++, AI, and life as an MSc student at York.',
+  title = 'devkage · HPC, AI & C++',
+  description = 'A personal blog by Bona on HPC, AI, C++, and life as an MSc Computer Science student at the University of York.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://devkage.space').href;
@@ -48,7 +48,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://devkage.spa
         <slot />
       </div>
       <footer class="px-5 sm:px-6 py-6 text-center font-mono text-[10px] uppercase tracking-wider text-[color:var(--color-text-tertiary)]">
-        devkage.space · made with care in york
+        devkage.space · made with care in jakarta
       </footer>
     </main>
   </body>

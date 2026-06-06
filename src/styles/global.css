@@ -22,20 +22,10 @@
   --color-accent-bg: #e6f1fb;
   --color-accent-border: #b5d4f4;
 
-  --color-tag-ai-bg: #eeedfe;
-  --color-tag-ai-fg: #3c3489;
-  --color-tag-cuda-bg: #e6f1fb;
-  --color-tag-cuda-fg: #0c447c;
-  --color-tag-hpc-bg: #e6f1fb;
-  --color-tag-hpc-fg: #185fa5;
-  --color-tag-cpp-bg: #eaf3de;
-  --color-tag-cpp-fg: #27500a;
-  --color-tag-life-bg: #faeeda;
-  --color-tag-life-fg: #633806;
-  --color-tag-york-bg: #f1efe8;
-  --color-tag-york-fg: #444441;
-  --color-tag-cs-bg: #eeedfe;
-  --color-tag-cs-fg: #3c3489;
+  --color-tag-swe-bg: #eeedfe;
+  --color-tag-swe-fg: #3c3489;
+  --color-tag-sqlite-bg: #e6f1fb;
+  --color-tag-sqlite-fg: #185fa5;
 
   --radius-md: 6px;
   --radius-lg: 12px;
@@ -48,6 +38,10 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Always reserve the vertical scrollbar's space so the centered
+       layout doesn't jump sideways when tag filtering changes the
+       page height (scrollbar appears/disappears). */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -73,13 +67,8 @@
     display: inline-block;
     line-height: 1.4;
   }
-  .ptag-hpc  { background: var(--color-tag-hpc-bg);  color: var(--color-tag-hpc-fg);  }
-  .ptag-ai   { background: var(--color-tag-ai-bg);   color: var(--color-tag-ai-fg);   }
-  .ptag-cuda { background: var(--color-tag-cuda-bg); color: var(--color-tag-cuda-fg); }
-  .ptag-cpp  { background: var(--color-tag-cpp-bg);  color: var(--color-tag-cpp-fg);  }
-  .ptag-life { background: var(--color-tag-life-bg); color: var(--color-tag-life-fg); }
-  .ptag-york { background: var(--color-tag-york-bg); color: var(--color-tag-york-fg); }
-  .ptag-cs   { background: var(--color-tag-cs-bg);   color: var(--color-tag-cs-fg);   }
+  .ptag-swe    { background: var(--color-tag-swe-bg);    color: var(--color-tag-swe-fg);    }
+  .ptag-sqlite { background: var(--color-tag-sqlite-bg); color: var(--color-tag-sqlite-fg); }
 
   .prose-post {
     color: var(--color-text-secondary);
@@ -126,6 +115,13 @@
   .prose-post pre code {
     background: transparent;
     padding: 0;
+  }
+  .prose-post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 0.5px solid var(--color-border-tertiary);
+    margin: 16px 0;
   }
   .prose-post blockquote {
     border-left: 2px solid var(--color-accent);
