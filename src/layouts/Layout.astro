@@ -16,8 +16,8 @@ interface Props {
 }
 
 const {
-  title = 'devkage · HPC, AI & C++',
-  description = 'A personal blog by Bonaventura on HPC, AI, C++, and life as an MSc Computer Science student at the University of York.',
+  title = 'devkage · AI, ML & MLOps',
+  description = 'A personal blog by Bonaventura on AI, ML, MLOps, and life as an MSc Computer Science student at the University of York.',
   image = '/og/default.jpg',
   article,
 } = Astro.props;
@@ -44,7 +44,7 @@ const jsonLd: Record<string, unknown>[] = [
     name: 'devkage',
     url: site.href,
     description:
-      'A personal blog by Bonaventura on HPC, AI, C++, and software engineering.',
+      'A personal blog by Bonaventura on AI, ML, MLOps, and software engineering.',
     author: { '@id': personId },
   },
   { '@context': 'https://schema.org', ...person },

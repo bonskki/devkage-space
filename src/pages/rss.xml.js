@@ -11,7 +11,7 @@ export async function GET(context) {
   return rss({
     title: 'devkage',
     description:
-      'Notes by Bonaventura on HPC, AI, C++, and software engineering.',
+      'Notes by Bonaventura on AI, ML, MLOps, and software engineering.',
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
