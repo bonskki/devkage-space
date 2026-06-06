@@ -31,7 +31,7 @@ const fmtDate = (d: Date) =>
 
 <Layout
   title="devkage · posts"
-  description="A personal blog by Bona on HPC, AI, C++, and life as an MSc Computer Science student at the University of York."
+  description="A personal blog by Bonaventura on HPC, AI, C++, and life as an MSc Computer Science student at the University of York."
 >
   <h1 class="sr-only">DevKage blog · posts on HPC, AI, C++, and student life</h1>
 
@@ -41,7 +41,7 @@ const fmtDate = (d: Date) =>
   >
     <img
       src="/images/profile.jpg"
-      alt="Bona"
+      alt="Bonaventura"
       width="40"
       height="40"
       class="h-10 w-10 flex-shrink-0 rounded-full border border-[color:var(--color-border-secondary)] object-cover"
@@ -50,9 +50,9 @@ const fmtDate = (d: Date) =>
       <div
         class="font-display text-base font-bold tracking-tight text-[color:var(--color-text-primary)]"
       >
-        Bona · HPC &amp; AI in the making
+        Bonaventura · HPC &amp; AI in the making
       </div>
-      <div class="mt-0.5 text-xs leading-relaxed text-[color:var(--color-text-secondary)]">
+      <div class="mt-0.5 text-[13px] leading-relaxed text-[color:var(--color-text-secondary)]">
         MSc Computer Science with AI · Uni of York · C++, C#, Python, JavaScript<br />
         sharing everything freely ·
         <a href="/" class="text-[color:var(--color-accent)] no-underline">devkage.space</a>
@@ -142,7 +142,7 @@ const fmtDate = (d: Date) =>
           <div class="flex items-start justify-between gap-3">
             <a
               href={`/posts/${p.id}/`}
-              class="font-display text-base font-bold leading-tight tracking-tight text-[color:var(--color-text-primary)] no-underline hover:text-[color:var(--color-accent)]"
+              class="font-display text-lg font-bold leading-tight tracking-tight text-[color:var(--color-text-primary)] no-underline hover:text-[color:var(--color-accent)]"
             >
               {p.data.title}
             </a>
@@ -152,7 +152,7 @@ const fmtDate = (d: Date) =>
               {fmtDate(p.data.date)}
             </span>
           </div>
-          <p class="text-xs leading-relaxed text-[color:var(--color-text-secondary)]">
+          <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)]">
             {p.data.excerpt}
           </p>
           <div class="flex flex-wrap gap-1.5">
