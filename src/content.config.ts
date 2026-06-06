@@ -10,6 +10,9 @@ const posts = defineCollection({
     excerpt: z.string(),
     tags: z.array(z.enum(ALL_TAGS)).min(1),
     draft: z.boolean().optional().default(false),
+    // Optional 1200x630 social-share card under /public/og. Falls back to the
+    // site default card when omitted.
+    ogImage: z.string().optional(),
   }),
 });
 

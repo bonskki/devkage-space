@@ -3,9 +3,10 @@ title: "How can I write better code, faster?"
 date: 2025-04-13
 excerpt: "Reflections on 5 years in software development: nine lessons on focus, depth, ownership, and debugging that shaped me as a developer and a person."
 tags: ["swe"]
+ogImage: "/og/how-can-i-write-better-code-faster.jpg"
 ---
 
-![How can I write better code, faster?](/images/write-better-code-faster.png)
+<img src="/images/write-better-code-faster.webp" alt="How can I write better code, faster?" width="1400" height="788" loading="eager" fetchpriority="high" decoding="async" />
 
 *Reflections on 5 Years in Software Development*
 

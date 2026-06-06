@@ -3,6 +3,7 @@ title: "SQLite for Web Apps: Distributed, Fast, and Production-Ready?"
 date: 2025-04-05
 excerpt: "Can SMEs run a secure, maintainable web app for under $10/month? Rediscovering SQLite for production with Litestream, LiteFS, Docker, and Traefik."
 tags: ["sqlite", "swe"]
+ogImage: "/og/sqlite-for-web-apps-distributed-fast-and-production-ready.jpg"
 ---
 
 Lately, I've been intrigued by a simple but important question: **How can we make databases less painful and more affordable for small-scale web applications?** Surprisingly, the answer might just be **SQLite**.
@@ -33,7 +34,7 @@ By running the SQLite database on the same server using Docker, and integrating 
 
 ## Sample Architecture: SQLite for Production on a Single Server
 
-![Sample architecture using SQLite, ASP.NET, Docker, Traefik, and Litestream](/images/sqlite-architecture.png)
+<img src="/images/sqlite-architecture.webp" alt="Sample architecture using SQLite, ASP.NET, Docker, Traefik, and Litestream" width="725" height="719" loading="lazy" decoding="async" />
 
 To make SQLite production-ready and reliable on a single server setup, here's the architecture I use:
 

@@ -22,7 +22,16 @@ const fmtFull = post.data.date.toLocaleDateString('en-GB', {
 });
 ---
 
-<Layout title={`${post.data.title} · devkage`} description={post.data.excerpt}>
+<Layout
+  title={`${post.data.title} · devkage`}
+  description={post.data.excerpt}
+  image={post.data.ogImage}
+  article={{
+    headline: post.data.title,
+    publishedTime: post.data.date.toISOString(),
+    tags: post.data.tags,
+  }}
+>
   <article class="px-5 sm:px-6 py-6 sm:py-8">
     <a
       href="/"
